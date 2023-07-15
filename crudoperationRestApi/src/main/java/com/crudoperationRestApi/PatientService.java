@@ -14,7 +14,11 @@ public interface PatientService {
 	
 	//delete patient by tenantid and patientid and extenalref
 	
-	void deleteByTenantidAndPatientidAndexternalref(String tenantid,String patientid,String externalref);
+	//void deleteByTenantidAndPatientidAndexternalref(String tenantid,String patientid,String externalref);
 	
+	
+	Patient getPatientByTenantidAndExternalref(String tenantid,String emrid);
+
+	Object getPatientByTenantidAndExternalrefs(String tenantid, Integer emrid);
 
 }
