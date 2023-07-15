@@ -3,6 +3,7 @@ package com.crudoperationRestApi;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityNotFoundException;
 import javax.persistence.ParameterMode;
 import javax.persistence.StoredProcedureQuery;
 
@@ -100,15 +101,15 @@ public class PatientService_Impl implements PatientService{
 		return res;
 	}
 
-//	@Override
-//	public void deleteByTenantidAndPatientidAndexternalref(String tenantId, String patientid, String externalref) {
-//		 Patient patient = patientRepo.findByExternalrefAndTenantIdAndPatientId(externalref, tenantId, patientid);
-//	        if(patient != null) {
-//	            patientRepo.delete(patient);
-//	        } else {
-//	            throw new EntityNotFoundException("Patient not found with externalref " + externalref + ", tenantId " + tenantId + ", and patientId " + patientid);
-//	        }
-//	 }
+	@Override
+	public void deleteByTenantidAndPatientidAndexternalref(String tenantId, String patientid, String externalref) {
+		 Patient patient = patientRepo.findByExternalrefAndTenantIdAndPatientId(externalref, tenantId, patientid);
+	        if(patient != null) {
+	            patientRepo.delete(patient);
+	        } else {
+	            throw new EntityNotFoundException("Patient not found with externalref " + externalref + ", tenantId " + tenantId + ", and patientId " + patientid);
+	        }
+	 }
 //	
 
 }

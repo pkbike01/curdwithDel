@@ -8,13 +8,13 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PatientRepository extends JpaRepository<Patient, Long> {
 
-//    @Query(value = "SELECT * FROM patient WHERE externalref = ?1 AND tenantid = ?2 AND patientid = ?3", nativeQuery = true)
-//    Patient findByExternalrefAndTenantIdAndPatientId(String externalref, String tenantId, String patientId);
+    @Query(value = "SELECT * FROM patient WHERE externalref = ?1 AND tenantid = ?2 AND patientid = ?3", nativeQuery = true)
+    Patient findByExternalrefAndTenantIdAndPatientId(String externalref, String tenantId, String patientId);
 //    
     
     
 //	@Transactional
-//	void deleteByPatientIdAndTenantidAndExternalref(String patientid,String tenantid,String externalref);
+	void deleteByPatientIdAndTenantidAndExternalref(String patientid,String tenantid,String externalref);
 	
 	@Query(value="SELECT * FROM patients WHERE externalref ->> 'emrid' = :emrid AND tenantid = :tenantid", nativeQuery=true)
 	Patient findPatientByTenantidAndExternalref(@Param("tenantid") String tenantid, @Param("emrid") String emrid);

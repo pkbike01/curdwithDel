@@ -12,9 +12,9 @@ public interface PatientService {
 	List<Patient> getPatient();
 	
 	
-	//delete patient by tenantid and patientid and extenalref
+//	delete patient by tenantid and patientid and extenalref
 	
-	//void deleteByTenantidAndPatientidAndexternalref(String tenantid,String patientid,String externalref);
+	void deleteByTenantidAndPatientidAndexternalref(String tenantid,String patientid,String externalref);
 	
 	
 	Patient getPatientByTenantidAndExternalref(String tenantid,String emrid);
