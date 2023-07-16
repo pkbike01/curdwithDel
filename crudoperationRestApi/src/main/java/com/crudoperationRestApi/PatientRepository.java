@@ -14,7 +14,7 @@ public interface PatientRepository extends JpaRepository<Patient, Long> {
     
     
 //	@Transactional
-	void deleteByPatientIdAndTenantidAndExternalref(String patientid,String tenantid,String externalref);
+	//void deleteByPatientIdAndTenantidAndExternalref(String patientid,String tenantid,String externalref);
 	
 	@Query(value="SELECT * FROM patients WHERE externalref ->> 'emrid' = :emrid AND tenantid = :tenantid", nativeQuery=true)
 	Patient findPatientByTenantidAndExternalref(@Param("tenantid") String tenantid, @Param("emrid") String emrid);

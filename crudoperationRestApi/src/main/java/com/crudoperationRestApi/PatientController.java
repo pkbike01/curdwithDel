@@ -43,24 +43,24 @@ public class PatientController {
 	
 	}
 	
-//	@DeleteMapping("/delete/{patientid}/{tenantid}/{externalref}")
-//	public ResponseEntity<?> deletePatient(@PathVariable("patientid") String patientid,
-//			@PathVariable("tenantid") String tenantid,@PathVariable("externalref") String externalref){
-//		Map<String , String> map = new HashMap<>();
-////		if{
-////			patientService.deleteByTenantidAndPatientidAndexternalref(tenantid, patientid, externalref);
-////		}else {
-////			
-////		}
-//		try {
+	@DeleteMapping("/delete/{patientid}/{tenantid}/{externalref}")
+	public ResponseEntity<?> deletePatient(@PathVariable("patientid") String patientid,
+			@PathVariable("tenantid") String tenantid,@PathVariable("externalref") String externalref){
+		Map<String , String> map = new HashMap<>();
+//		if{
 //			patientService.deleteByTenantidAndPatientidAndexternalref(tenantid, patientid, externalref);
-//		}catch (Exception e) {
-//			System.out.println("patient is not present!");
-//			// TODO: handle exception
+//		}else {
+//			
 //		}
-//		
-//		return ResponseEntity.ok("patient deleted!!");
-//	}
+		try {
+			patientService.deleteByTenantidAndPatientidAndexternalref(tenantid, patientid, externalref);
+		}catch (Exception e) {
+			System.out.println("patient is not present!");
+			// TODO: handle exception
+		}
+		
+		return ResponseEntity.ok("patient deleted!!");
+	}
 	
 	@GetMapping("/patient/{externalref}/{tenantid}")
 	public ResponseEntity<Patient> getPatientByTenantidAndExternalRef(@PathVariable("externalref") String emrid,@PathVariable String tenantid){
