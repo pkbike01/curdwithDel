@@ -1,10 +1,13 @@
 package com.crudoperationRestApi;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -103,5 +107,69 @@ public class PatientController {
 		
 		
 	}
+	//It will save list of patient.
+	@SuppressWarnings("unchecked")
+	@PostMapping("/patientList")
+	public ResponseEntity<?> savePatientList(@RequestBody List<Patient> p ){
+		Map<String,List<Object>> map = null;
+		map = new HashMap<>();
+		List<Object> list = new ArrayList<>();
+		
+		System.out.println(p);
+		for(Patient pat : p) {
+//			System.out.println(pat);
+			Patient save = repo.save(pat);
+			
+			list.add("mesg saved : "+ save.getId());
+			
+//			System.out.println(map);
+//			list.add(map);
+			
+		}
+		map.put("result : ", list);
+		System.out.println(list);
+		
+		return new ResponseEntity<>(map,HttpStatus.ACCEPTED);
+	}
 	
+    @PostMapping("/patientList/p")
+    public ResponseEntity<Map<String, List<String>>> savePatientList2(@RequestBody List<Patient> patients) {
+        Map<String, List<String>> result = new HashMap<>();
+        List<String> messages = new ArrayList<>();
+        messages.add("saved");
+
+        patients.forEach(patient -> {
+            repo.save(patient);  //Patient savedPatient = 
+//            messages.add("Message saved: " + savedPatient.getId());
+        });
+
+        result.put("result", messages);
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(result);
+    }
+
+	
+	
+	//Today Task create get api with search operation with pagination logic:
+	
+    @GetMapping("/patientinfo")
+    public List<Patient> searchPatients(
+            @RequestParam(name = "search", required = false) String search,
+            @RequestParam(name = "size", defaultValue = "10") int size,
+            @RequestParam(name = "page", defaultValue = "0") int page
+    ) {
+        
+    
+    if (search != null && !search.isEmpty()) {
+        // Search books by title
+    	Page<Patient> patientPage = repo.findBySearch(search, PageRequest.of(page, size));
+        return patientPage.getContent();
+    } else {
+        // Get all books if no search criteria provided
+        Page<Patient> bookPage = repo.findAll(PageRequest.of(page, size));
+        return bookPage.getContent();
+    }
+    
+    
+    
+    }
 }
